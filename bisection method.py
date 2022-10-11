@@ -5,13 +5,14 @@ myTable = PrettyTable(['Iteration','l','r','m','ea'])
 u = float(input('enter starting value : '))
 v = float(input('enter ending value : '))
 tol = float(input('enter tolerence value : '))
+totalIteration = int(input('enter total iteration : '))
 maxPower = int(input('enter maximum power of x : '))
 
 factors = []
 
 cnt = maxPower
 
-def cheackSign(a):
+def getValue(a):
     cnt = maxPower
     v1 = 0.00
 
@@ -21,53 +22,40 @@ def cheackSign(a):
 
     return v1
 
-def findRoot(l,r,tol):
+def findRoot(l,r):
     prev = -1.0
     cnt = 1
-    res = -1.0
     ea = -1.0
-    found = False
-
-    ll = l
-    rr = r
 
     while l<r:
         ll = l
         rr = r
         m = (l + r) / 2.0
-        xm = cheackSign(m)
-        xl = cheackSign(l)
+        xm = getValue(m)
+        xl = getValue(l)
 
         if (xl * xm > 0.0):
             l = m
         elif (xl * xm < 0.0):
             r = m
         else:
-            res = m
             break
 
         if(cnt>1):
             ea = abs(m-prev)
             ea = ea/m
             ea = ea*100
-            '''
-            if(ea<=tol):
-                found = True
-                res = m
-                break
-            '''
+
         myTable.add_row([cnt,ll,rr,m,ea])
 
         cnt+=1
         prev = m
 
-        if(cnt==11):
+        if(ea<=tol):
             break
 
-    if(found):
-        print('root is : ', res)
-    else:
-        print('no root found')
+        if(cnt==(totalIteration+1)):
+            break
 
 while(cnt>=0):
     txt = 'enter factor of x^{} : '
@@ -75,11 +63,11 @@ while(cnt>=0):
     factors.append(val)
     cnt-=1
 
-firstSign = cheackSign(u)
-secondSign = cheackSign(v)
+firstSign = getValue(u)
+secondSign = getValue(v)
 
 if((firstSign*secondSign) < 0):
-    findRoot(u,v,tol)
+    findRoot(u,v)
     print()
     print(myTable)
 
