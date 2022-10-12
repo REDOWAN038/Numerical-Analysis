@@ -1,13 +1,5 @@
 from prettytable import PrettyTable
 
-myTable = PrettyTable(['Iteration','x','y','z','ea'])
-
-function = input('enter your function : ')
-x = float(input('enter first guess : '))
-y = float(input('enter second guess : '))
-tol = float(input('enter tolerence value : '))
-totalIteration = int(input('enter total iteration : '))
-
 def getFunctionValue(x):
     val = eval(function)
     return val
@@ -35,6 +27,15 @@ def getRoot(x,y):
             break
 
         cnt+=1
+
+
+myTable = PrettyTable(['Iteration','x','y','z','ea'])
+
+function = input('enter your function : ')
+x = float(input('enter first guess : '))
+y = float(input('enter second guess : '))
+tol = float(input('enter tolerence value : '))
+totalIteration = int(input('enter total iteration : '))
 
 
 getRoot(x,y)

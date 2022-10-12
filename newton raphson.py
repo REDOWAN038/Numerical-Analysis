@@ -1,16 +1,6 @@
 from prettytable import PrettyTable
 import random
 
-myTable = PrettyTable(['Iteration','x','m','ea'])
-
-function = input('enter your function : ')
-devFunction = input('enter first derivative of your function : ')
-u = float(input('enter starting value : '))
-v = float(input('enter ending value : '))
-tol = float(input('enter tolerence value : '))
-totalIteration = int(input('enter total iteration : '))
-print()
-
 def getFunctionValue(x):
     val = eval(function)
     return val
@@ -38,6 +28,18 @@ def getRoot(x):
             break
 
         cnt+=1
+
+
+myTable = PrettyTable(['Iteration','x','m','ea'])
+
+function = input('enter your function : ')
+devFunction = input('enter first derivative of your function : ')
+u = float(input('enter starting value : '))
+v = float(input('enter ending value : '))
+tol = float(input('enter tolerence value : '))
+totalIteration = int(input('enter total iteration : '))
+print()
+
 
 x = random.uniform(u,v)
 getRoot(x)

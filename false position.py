@@ -1,13 +1,5 @@
 from prettytable import PrettyTable
 
-myTable = PrettyTable(['Iteration','l','r','m','ea'])
-
-function = input('enter your function : ')
-u = float(input('enter starting value : '))
-v = float(input('enter ending value : '))
-tol = float(input('enter tolerence value : '))
-totalIteration = int(input('enter total iteration : '))
-
 def getFunctionValue(x):
     val = eval(function)
     return val
@@ -59,6 +51,14 @@ def findRoot(l,r):
         if (cnt == (totalIteration + 1)):
             break
 
+
+myTable = PrettyTable(['Iteration','l','r','m','ea'])
+
+function = input('enter your function : ')
+u = float(input('enter starting value : '))
+v = float(input('enter ending value : '))
+tol = float(input('enter tolerence value : '))
+totalIteration = int(input('enter total iteration : '))
 firstSign = getFunctionValue(u)
 secondSign = getFunctionValue(v)
 
