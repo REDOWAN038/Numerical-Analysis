@@ -1,5 +1,7 @@
 from prettytable import PrettyTable
-import random
+from sympy import *
+import numpy as np
+import matplotlib.pyplot as plt
 
 def getFunctionValue(x):
     val = eval(function)
@@ -12,6 +14,9 @@ def getDerivativeFunctionValue(x):
 def getRoot(x):
 
     cnt = 1
+    found = False
+    root = -1
+    error = -1
 
     while(True):
         l = getFunctionValue(x)
@@ -19,28 +24,61 @@ def getRoot(x):
         m = x-(l/r)
         ea = abs(m-x)
         ea = (ea/m)*100
-        myTable.add_row([cnt, x, m, ea])
+        xm = getFunctionValue(m)
+        myTable.add_row([cnt, x, m, ea, xm])
         x = m
+        root = m
+        error = ea
 
         if(ea<=tol):
+            found = True
             break
         if (cnt == totalIteration):
             break
 
         cnt+=1
 
+    if (found):
+        print("The Root is " + str(root) + " with error " + str(error))
+        print('We found the root at iteration : ', cnt)
 
-myTable = PrettyTable(['Iteration','x','m','ea'])
+    else:
+        print("Can't get accurate result for given tolerance you wanted due for iteration limitations")
+        txt = 'Root after iteration {} is {} with error {}'
+        print(txt.format(totalIteration, root, error))
+
+
+myTable = PrettyTable(['Iteration','x(i-1)','x(i)','ea', 'f(x(i))'])
 
 function = input('enter your function : ')
-devFunction = input('enter first derivative of your function : ')
-u = float(input('enter starting value : '))
-v = float(input('enter ending value : '))
-tol = float(input('enter tolerence value : '))
+xx = float(input('enter your initial guess : '))
+tol = float(input('enter tolerance value : '))
 totalIteration = int(input('enter total iteration : '))
 print()
 
+x, y = symbols('x y')
+devFunction = Derivative(function, x)
+devFunction =  str(devFunction.doit())
 
-x = random.uniform(u,v)
-getRoot(x)
+xaxis = []
+yaxis = []
+u = xx-xx
+v = xx+xx
+
+while u<=v:
+    xaxis.append(u)
+    yaxis.append(getFunctionValue(u))
+    u+=0.01
+
+getRoot(xx)
+print()
 print(myTable)
+
+xaxis = np.array(xaxis)
+yaxis = np.array(yaxis)
+plt.axhline(y=0.0, color='r', linestyle='-')
+plt.axvline(x=0.0, color='r')
+plt.xlabel("m")
+plt.ylabel("f(m)")
+plt.plot(xaxis, yaxis)
+plt.show()
