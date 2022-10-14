@@ -7,6 +7,9 @@ def getFunctionValue(x):
     val = eval(function)
     return val
 
+def countSignificantDigits(x):
+    return int(2-math.log10(x*2))
+
 def findRoot(l, r):
     prev = -1.0
     cnt = 1
@@ -39,9 +42,9 @@ def findRoot(l, r):
                 ea = ea / m
                 ea = ea * 100
                 error = ea
-                myTable.add_row([cnt, ll, rr, m, ea, xm])
+                myTable.add_row([cnt, ll, rr, m, ea, xm, countSignificantDigits(ea)])
             else:
-                myTable.add_row([cnt, ll, rr, m, '-', xm])
+                myTable.add_row([cnt, ll, rr, m, '-', xm, '-'])
             break
 
         if (cnt > 1):
@@ -50,13 +53,13 @@ def findRoot(l, r):
             ea = ea * 100
             error = ea
         if(cnt>1):
-            myTable.add_row([cnt, ll, rr, m, ea, xm])
+            myTable.add_row([cnt, ll, rr, m, ea, xm, countSignificantDigits(ea)])
             if (ea <= tol):
                 found = True
                 root = m
                 break
         else:
-            myTable.add_row([cnt, ll, rr, m, '-', xm])
+            myTable.add_row([cnt, ll, rr, m, '-', xm, '-'])
 
         cnt += 1
         prev = m
@@ -78,7 +81,7 @@ def findRoot(l, r):
         y.append(getFunctionValue(lll))
         lll = lll + 0.01
 
-myTable = PrettyTable(['Iteration','l','r','m','ea','F(m)'])
+myTable = PrettyTable(['Iteration','l','r','m','ea','F(m)','Significant Digits'])
 
 function = input('enter your function : ')
 u = float(input('enter lower limit : '))

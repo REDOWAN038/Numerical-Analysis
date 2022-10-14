@@ -2,6 +2,7 @@ from prettytable import PrettyTable
 from sympy import *
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 def getFunctionValue(x):
     val = eval(function)
@@ -10,6 +11,9 @@ def getFunctionValue(x):
 def getDerivativeFunctionValue(x):
     val = eval(devFunction)
     return val
+
+def countSignificantDigits(x):
+    return int(2-math.log10(x*2))
 
 def getRoot(x):
 
@@ -25,7 +29,7 @@ def getRoot(x):
         ea = abs(m-x)
         ea = (ea/m)*100
         xm = getFunctionValue(m)
-        myTable.add_row([cnt, x, m, ea, xm])
+        myTable.add_row([cnt, x, m, ea, xm, countSignificantDigits(ea)])
         x = m
         root = m
         error = ea
@@ -48,7 +52,7 @@ def getRoot(x):
         print(txt.format(totalIteration, root, error))
 
 
-myTable = PrettyTable(['Iteration','x(i-1)','x(i)','ea', 'f(x(i))'])
+myTable = PrettyTable(['Iteration','x(i-1)','x(i)','ea', 'f(x(i))', 'Significant Digits'])
 
 function = input('enter your function : ')
 xx = float(input('enter your initial guess : '))
